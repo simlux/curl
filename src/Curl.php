@@ -108,6 +108,18 @@ class Curl
     }
 
     /**
+     * @param AbstractOptionBundle $optionBundle
+     *
+     * @return Curl
+     */
+    public function optionBundle(AbstractOptionBundle $optionBundle): Curl
+    {
+        $this->optionBundles[] = $optionBundle;
+
+        return $this;
+    }
+
+    /**
      * @param bool $returnTransfer
      *
      * @return Curl
