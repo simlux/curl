@@ -16,7 +16,7 @@
     "minimum-stability": "stable",
     "require":           {
         "php":            "^7.0",
-        "simlux/php-url": "dev-master"
+        "simlux/string-buffer": "dev-master"
     },
     "autoload":          {
         "psr-4": {
