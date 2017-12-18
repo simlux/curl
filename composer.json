@@ -1,5 +1,5 @@
 {
-    "name": "simlux/curl",
+    "name": "simlux/php-curl",
     "description": "Use curl the object oriented way with extensions for proxy usage, caching, ...",
     "type": "library",
     "license": "MIT",
@@ -10,8 +10,8 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/simlux/curl/issues",
-	"source": "https://github.com/simlux/curl"
+        "issues": "https://github.com/simlux/php-curl/issues",
+	"source": "https://github.com/simlux/php-curl"
     },
     "minimum-stability": "stable",
     "require": {

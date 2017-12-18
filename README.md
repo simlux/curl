@@ -2,6 +2,6 @@
 
 ## Installation
 ```
-composer require simlux/curl:dev-master
+composer require simlux/php-curl:dev-master
 ```
 
