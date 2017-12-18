@@ -1,26 +1,26 @@
 {
-    "name": "simlux/php-curl",
-    "description": "Use curl the object oriented way with extensions for proxy usage, caching, ...",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
+    "name":              "simlux/php-curl",
+    "description":       "Use curl the object oriented way with extensions for proxy usage, caching, ...",
+    "type":              "library",
+    "license":           "MIT",
+    "authors":           [
         {
-            "name": "Simon Kleeschulte",
+            "name":  "Simon Kleeschulte",
             "email": "simlux78@gmail.com"
         }
     ],
-    "support": {
+    "support":           {
         "issues": "https://github.com/simlux/php-curl/issues",
-	"source": "https://github.com/simlux/php-curl"
+        "source": "https://github.com/simlux/php-curl"
     },
     "minimum-stability": "stable",
-    "require": {
-	"php": "^7.0",
+    "require":           {
+        "php":            "^7.0",
         "simlux/php-url": "dev-master"
     },
-      "autoload": {
-	"psr-4": {
+    "autoload":          {
+        "psr-4": {
             "Simlux\\Curl\\": "src/"
-	}
+        }
     }
 }
