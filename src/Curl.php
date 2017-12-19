@@ -43,6 +43,11 @@ class Curl
     private $curl;
 
     /**
+     * @var bool
+     */
+    private $collectInfo = false;
+
+    /**
      * Curl constructor.
      *
      * @param string $url
@@ -132,6 +137,30 @@ class Curl
     }
 
     /**
+     * @param bool $collectInfo
+     *
+     * @return Curl
+     */
+    public function collectInfo(bool $collectInfo = true): Curl
+    {
+        $this->collectInfo = $collectInfo;
+
+        return $this;
+    }
+
+    /**
+     * @param bool $failOnError
+     *
+     * @return Curl
+     */
+    public function failOnError(bool $failOnError = true): Curl
+    {
+        $this->options[ CURLOPT_FAILONERROR ] = $failOnError;
+
+        return $this;
+    }
+
+    /**
      * @param bool $autoReferrer
      *
      * @return Curl
@@ -198,13 +227,35 @@ class Curl
         return $headers;
     }
 
-    public function execute()
+    /**
+     * @return Response
+     */
+    public function execute(): Response
     {
-        $this->curl                          = curl_init($this->url);
+        $start                               = microtime(true);
+        $curl                                = curl_init($this->url);
         $this->options[ CURLOPT_HTTPHEADER ] = $this->getHeaders();
-        curl_setopt_array($this->curl, $this->options);
+        curl_setopt_array($curl, $this->options);
         $this->setOptions();
         $this->initializeExtensions();
+
+        $response             = new Response();
+        $response->statusCode = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $response->body       = curl_exec($curl);
+
+        if ($response->body === false) {
+            $response->errorNumber = curl_errno($curl);
+            $response->error       = curl_error($curl);
+        }
+
+        if ($this->collectInfo) {
+            $response->info = curl_getinfo($curl);
+        }
+
+        curl_close($curl);
+        $response->duration = $start - microtime(true);
+
+        return $response;
     }
 
     private function setOptions()
