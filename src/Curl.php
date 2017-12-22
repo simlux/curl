@@ -215,6 +215,21 @@ class Curl
     }
 
     /**
+     *
+     * @param array $headers
+     *
+     * @return Curl
+     */
+    public function headers(array $headers): Curl
+    {
+        foreach ($headers as $name => $value) {
+            $this->header[ $name ] = $value;
+        }
+
+        return $this;
+    }
+
+    /**
      * @return array
      */
     private function getHeaders(): array
