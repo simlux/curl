@@ -38,14 +38,14 @@ class Curl
     private $optionBundles = [];
 
     /**
-     * @var resource
-     */
-    private $curl;
-
-    /**
      * @var bool
      */
     private $collectInfo = false;
+
+    /**
+     * @var resource
+     */
+    private $fileHandle;
 
     /**
      * Curl constructor.
@@ -172,9 +172,28 @@ class Curl
         return $this;
     }
 
+    /**
+     * @param string $referrer
+     *
+     * @return Curl
+     */
     public function referrer(string $referrer): Curl
     {
         $this->options[ CURLOPT_REFERER ] = $referrer;
+
+        return $this;
+    }
+
+    /**
+     * @param string $filename
+     *
+     * @return Curl
+     */
+    public function file(string $filename): Curl
+    {
+        $this->fileHandle              = fopen($filename, 'w+');
+        $this->options[ CURLOPT_FILE ] = $this->fileHandle;
+        $this->followLocation(true);
 
         return $this;
     }
@@ -269,6 +288,10 @@ class Curl
 
         curl_close($curl);
         $response->duration = $start - microtime(true);
+
+        if (is_resource($this->fileHandle)) {
+            fclose($this->fileHandle);
+        }
 
         return $response;
     }
