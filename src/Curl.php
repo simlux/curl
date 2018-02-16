@@ -299,8 +299,8 @@ class Curl
         $this->initializeExtensions();
 
         $response             = new Response();
-        $response->statusCode = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
         $response->body       = curl_exec($curl);
+        $response->statusCode = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
         if ($response->body === false) {
             $response->errorNumber = curl_errno($curl);
@@ -312,7 +312,7 @@ class Curl
         }
 
         curl_close($curl);
-        $response->duration = $start - microtime(true);
+        $response->duration = microtime(true) - $start;
 
         if (is_resource($this->fileHandle)) {
             fclose($this->fileHandle);
