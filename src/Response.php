@@ -130,4 +130,18 @@ class Response
     {
         return $this->errorCodes[ $errorNumber ] ?: 'unknown error number ' . $errorNumber;
     }
+
+    /**
+     * @param bool $assoc
+     *
+     * @return array|false
+     */
+    public function jsonDecode(bool $assoc = true)
+    {
+        if (!empty($this->body)) {
+            return json_decode($this->body, $assoc);
+        }
+
+        return false;
+    }
 }
