@@ -236,6 +236,18 @@ class Curl
     }
 
     /**
+     * @param bool $reuse
+     *
+     * @return Curl
+     */
+    public function forbidReuse(bool $reuse = true): Curl
+    {
+        $this->options[ CURLOPT_FORBID_REUSE ] = $reuse;
+
+        return $this;
+    }
+
+    /**
      * @param string $userAgent
      *
      * @return Curl
