@@ -351,4 +351,28 @@ class Curl
 
         return $this;
     }
+
+    /**
+     * @param int $timeout
+     *
+     * @return Curl
+     */
+    public function timeout(int $timeout): Curl
+    {
+        $this->options[CURLOPT_TIMEOUT] = $timeout;
+
+        return $this;
+    }
+
+    /**
+     * @param int $timeout
+     *
+     * @return Curl
+     */
+    public function timeoutMS(int $timeout): Curl
+    {
+        $this->options[CURLOPT_TIMEOUT_MS] = $timeout;
+
+        return $this;
+    }
 }
