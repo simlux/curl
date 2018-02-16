@@ -53,7 +53,7 @@ class Curl
      * @param string $url
      * @param array  $options
      */
-    public function __construct(string $url, array $options = [])
+    public function __construct(string $url = null, array $options = [])
     {
         $this->url = $url;
 
@@ -326,5 +326,17 @@ class Curl
         foreach ($this->optionBundles as $options) {
             $options->setOptions($this);
         }
+    }
+
+    /**
+     * @param string $url
+     *
+     * @return Curl
+     */
+    public function url(string $url): Curl
+    {
+        $this->url = $url;
+
+        return $this;
     }
 }
