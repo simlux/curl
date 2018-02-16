@@ -149,6 +149,21 @@ class Curl
     }
 
     /**
+     * @param string|null $content
+     *
+     * @return Curl
+     */
+    public function post(string $content = null): Curl
+    {
+        $this->options[ CURLOPT_POST ] = true;
+        if (!is_null($content)) {
+            $this->options[ CURLOPT_POSTFIELDS ] = $content;
+        }
+
+        return $this;
+    }
+
+    /**
      * @param bool $failOnError
      *
      * @return Curl
