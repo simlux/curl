@@ -164,6 +164,16 @@ class Curl
     }
 
     /**
+     * @return Curl
+     */
+    public function delete(): Curl
+    {
+        $this->options[ CURLOPT_CUSTOMREQUEST ] = 'DELETE';
+
+        return $this;
+    }
+
+    /**
      * @param bool $failOnError
      *
      * @return Curl
