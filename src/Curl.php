@@ -12,6 +12,9 @@ use Simlux\Curl\Options\AbstractOptionBundle;
  */
 class Curl
 {
+    const FORMAT_JSON = 'json';
+    const FORMAT_XML  = 'xml';
+
     /**
      * @var string
      */
@@ -169,6 +172,37 @@ class Curl
     public function delete(): Curl
     {
         $this->options[ CURLOPT_CUSTOMREQUEST ] = 'DELETE';
+
+        return $this;
+    }
+
+    /**
+     * @param null   $data
+     * @param string $format
+     *
+     * @return Curl
+     * @throws \Exception
+     */
+    public function put($data = null, string $format = self::FORMAT_JSON): Curl
+    {
+        $this->options[ CURLOPT_CUSTOMREQUEST ] = 'PUT';
+
+        if (!is_null($data)) {
+            switch ($format) {
+                case self::FORMAT_JSON:
+                    $this->header('Content-Type', 'application/json');
+                    $this->options[ CURLOPT_POSTFIELDS ] = json_encode($data);
+                    break;
+
+                case self::FORMAT_XML:
+                    $this->header('Content-Type', 'application/xml');
+                    $this->options[ CURLOPT_POSTFIELDS ] = $data;
+                    break;
+
+                default:
+                    throw new \Exception('Unknown format ' . $format);
+            }
+        }
 
         return $this;
     }
@@ -359,7 +393,7 @@ class Curl
      */
     public function timeout(int $timeout): Curl
     {
-        $this->options[CURLOPT_TIMEOUT] = $timeout;
+        $this->options[ CURLOPT_TIMEOUT ] = $timeout;
 
         return $this;
     }
@@ -371,7 +405,7 @@ class Curl
      */
     public function timeoutMS(int $timeout): Curl
     {
-        $this->options[CURLOPT_TIMEOUT_MS] = $timeout;
+        $this->options[ CURLOPT_TIMEOUT_MS ] = $timeout;
 
         return $this;
     }
