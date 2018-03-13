@@ -4,6 +4,7 @@ namespace Simlux\Curl;
 
 use Simlux\Curl\Extensions\ExtensionInterface;
 use Simlux\Curl\Options\AbstractOptionBundle;
+use Simlux\Curl\Options\OptionTranslator;
 
 /**
  * Class Curl
@@ -107,6 +108,20 @@ class Curl
      * @return Curl
      */
     public function options(array $options): Curl
+    {
+        foreach ($options as $name => $value) {
+            $this->option($name, $value);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param OptionTranslator $options
+     *
+     * @return Curl
+     */
+    public function optionsFromArrayOptions(OptionTranslator $options): Curl
     {
         foreach ($options as $name => $value) {
             $this->option($name, $value);
@@ -408,5 +423,40 @@ class Curl
         $this->options[ CURLOPT_TIMEOUT_MS ] = $timeout;
 
         return $this;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getRequestUrl(): string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequestMethod(): string
+    {
+        if (isset($this->options[ CURLOPT_CUSTOMREQUEST ])) {
+            return strtoupper($this->options[ CURLOPT_CUSTOMREQUEST ]);
+        }
+
+        return 'GET';
+    }
+
+    /**
+     * @return array
+     */
+    public function getRequestBody(): array
+    {
+        if (isset($this->options[ CURLOPT_POSTFIELDS ])) {
+            return is_array($this->options[ CURLOPT_POSTFIELDS ])
+                ? $this->options[ CURLOPT_POSTFIELDS ]
+                : [$this->options[ CURLOPT_POSTFIELDS ]];
+        }
+
+        return [];
     }
 }
