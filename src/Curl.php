@@ -459,4 +459,12 @@ class Curl
 
         return [];
     }
+
+    /**
+     * @return array
+     */
+    public function getOptions(): array
+    {
+        return $this->options;
+    }
 }
