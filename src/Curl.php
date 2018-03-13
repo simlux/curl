@@ -467,4 +467,104 @@ class Curl
     {
         return $this->options;
     }
+
+    /**
+     * @param $key
+     *
+     * @return string
+     */
+    public function translateOptionKey($key): string
+    {
+        $translate = [
+            10001 => 'FILE',
+            10002 => 'URL',
+            3     => 'PORT',
+            10004 => 'PROXY',
+            10005 => 'USERPWD',
+            10006 => 'PROXYUSERPWD',
+            10007 => 'RANGE',
+            10009 => 'INFILE',
+            20011 => 'WRITEFUNCTION',
+            20012 => 'READFUNCTION',
+            13    => 'TIMEOUT',
+            19913 => 'RETURNTRANSFER',
+            14    => 'INFILESIZE',
+            10015 => 'POSTFIELDS',
+            10016 => 'REFERER',
+            10017 => 'FTPPORT',
+            10018 => 'USERAGENT',
+            19    => 'LOW_SPEED_LIMIT',
+            20    => 'LOW_SPEED_TIME',
+            21    => 'RESUME_FROM',
+            10022 => 'COOKIE',
+            10023 => 'HTTPHEADER',
+            10025 => 'SSLCERT',
+            10026 => '(SSLCERT|SSLKEY)PASSWD',
+            27    => 'CRLF',
+            10028 => 'QUOTE',
+            10029 => 'WRITEHEADER',
+            10031 => 'COOKIEFILE',
+            32    => 'SSLVERSION',
+            33    => 'TIMECONDITION',
+            34    => 'TIMEVALUE',
+            10036 => 'CUSTOMREQUEST',
+            10037 => 'STDERR',
+            10039 => 'POSTQUOTE',
+            41    => 'VERBOSE',
+            42    => 'HEADER',
+            43    => 'NOPROGRESS',
+            44    => 'NOBODY',
+            45    => 'FAILONERROR',
+            46    => 'UPLOAD',
+            47    => 'POST',
+            48    => 'FTPLISTONLY',
+            50    => 'FTPAPPEND',
+            51    => 'NETRC',
+            52    => 'FOLLOWLOCATION',
+            53    => 'TRANSFERTEXT',
+            54    => 'PUT',
+            55    => 'MUTE',
+            20056 => 'PROGRESSFUNCTION',
+            58    => 'AUTOREFERER',
+            59    => 'PROXYPORT',
+            61    => 'HTTPPROXYTUNNEL',
+            10062 => 'INTERFACE',
+            10063 => 'KRB4LEVEL',
+            64    => 'SSL_VERIFYPEER',
+            10065 => 'CAINFO',
+            20066 => 'PASSWDFUNCTION',
+            68    => 'MAXREDIRS',
+            10069 => 'FILETIME',
+            10070 => 'TELNETOPTIONS',
+            71    => 'MAXCONNECTS',
+            72    => 'CLOSEPOLICY',
+            74    => 'FRESH_CONNECT',
+            75    => 'FORBID_REUSE',
+            10076 => 'RANDOM_FILE',
+            10077 => 'EGDSOCKET',
+            78    => 'CONNECTTIMEOUT',
+            20079 => 'HEADERFUNCTION',
+            80    => 'HTTPGET',
+            81    => 'SSL_VERIFYHOST',
+            10082 => 'COOKIEJAR',
+            10083 => 'SSL_CIPHER_LIST',
+            84    => 'HTTP_VERSION',
+            85    => 'FTP_USE_EPSV',
+            10086 => 'SSLCERTTYPE',
+            10087 => 'SSLKEY',
+            10088 => 'SSLKEYTYPE',
+            10089 => 'SSLENGINE',
+            90    => 'SSLENGINE_DEFAULT',
+            91    => 'DNS_USE_GLOBAL_CACHE',
+            92    => 'DNS_CACHE_TIMEOUT',
+            10093 => 'PREQUOTE',
+            155   => 'TIMEOUT_MS',
+
+        ];
+        if (isset($translate[ $key ])) {
+            return $translate[ $key ];
+        }
+
+        return (string) $key;
+    }
 }
