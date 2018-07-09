@@ -2,8 +2,16 @@
 
 namespace Simlux\Curl;
 
+/**
+ * Class Response
+ *
+ * @package Simlux\Curl
+ */
 class Response
 {
+    const INFO_HTTP_CODE  = 'http_code';
+    const INFO_TOTAL_TIME = 'total_time';
+
     /**
      * @var array
      */
