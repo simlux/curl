@@ -267,6 +267,7 @@ class Curl
     {
         $this->fileHandle              = fopen($filename, 'w+');
         $this->options[ CURLOPT_FILE ] = $this->fileHandle;
+        $this->binaryTransfer(true);
         $this->followLocation(true);
 
         return $this;
@@ -304,6 +305,8 @@ class Curl
     public function userAgent(string $userAgent): Curl
     {
         $this->options[ CURLOPT_USERAGENT ] = $userAgent;
+
+        return $this;
     }
 
     /**
@@ -376,6 +379,12 @@ class Curl
         $response->duration = microtime(true) - $start;
 
         if (is_resource($this->fileHandle)) {
+
+            $meta_data = stream_get_meta_data($this->fileHandle);
+            if (filesize($meta_data['uri']) === 0) {
+                $response->error = 'File size is 0!';
+            }
+
             fclose($this->fileHandle);
         }
 
@@ -567,4 +576,17 @@ class Curl
 
         return (string) $key;
     }
+
+    /**
+     * @param bool $binaryTransfer
+     *
+     * @return Curl
+     */
+    public function binaryTransfer(bool $binaryTransfer = true): Curl
+    {
+        $this->options[ CURLOPT_BINARYTRANSFER ] = $binaryTransfer;
+
+        return $this;
+    }
+
 }
